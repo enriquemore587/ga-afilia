@@ -1,32 +1,40 @@
-<template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+<template lang="pug">
+  v-app
+    //- MainBar(v-if="logged")
+    v-main.container
+      router-view
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import MainBar from './components/MainBar.vue'
+import { mapMutations, mapState } from "vuex";
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+export default {
+  name: 'App',
+  components: {
+    MainBar
+  },
+  data: () => ({
+    image: '../assets/logo_white.png'
+  }),
+  computed : {
+    ...mapState(["logged"])
+  },
+  mounted() {
+    if(localStorage.token) {
+        alert("You've not logged!")
+      }
+  },
+  methods : {
+    ...mapMutations(["isLogged"]),
+  },
+  beforeMount() {
+    this.isLogged(this)
+  }
+};
+</script>
+<style scoped>
+.container {
+  background-image:  url(./assets/doctor-login.jpg);
 }
 </style>
