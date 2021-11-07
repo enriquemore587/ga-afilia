@@ -2,11 +2,8 @@
   div
     v-alert(v-if="attempts>0" text outlined color="deep-orange" icon="mdi-fire") 
       | Por seguridad, solo tienes {{attempts}} intento(s). Después de esto tu cuenta sera bloqueada
-    div.title
-      h1 Afilia
-        strong care
     div.initial
-      v-card(class="mx-auto" max-width="500" :loading="loading" :disabled="disabled")
+      v-card(max-width="500" :loading="loading" :disabled="disabled" style="margin:auto")
         v-card-title Recuperar acceso
         v-card-subtitle Introduce tu usuario. Para recibir código de recuperación
         div.container
@@ -62,10 +59,6 @@
 <style scoped>
   * {
     font-family: 'Material Design Icons';
-  }
-  .title {
-    margin-top: 80px;
-    text-align: center;
   }
   .initial {
     margin-top: 70px;

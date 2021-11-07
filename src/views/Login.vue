@@ -4,11 +4,8 @@
       | {{accountBlockedMsg}}
     v-alert(v-if="usrPwdIncorrect" type="info")
       | {{userPwdMsg}}
-    div.title
-      h1 Afilia
-        strong care
     div.initial
-      v-card(class="mx-auto" max-width="500" :loading="loading" :disabled="disabled")
+      v-card(max-width="500" :loading="loading" :disabled="disabled" style="margin:auto")
         v-card-title Acceso
         v-card-subtitle Introduce tus datos para acceder
         div.container
@@ -115,7 +112,8 @@ import { mapMutations } from "vuex";
     text-align: center;
   }
   .initial {
-    margin-top: 70px;
+    padding-top: 70px;
+
   }
   .btn {
     margin-top: 5px;
