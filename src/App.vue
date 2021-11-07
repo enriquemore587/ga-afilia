@@ -5,9 +5,9 @@
         template(v-slot:img="{ props }")
           v-img(v-bind="props" gradient="to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)")
         v-img(:src="require('./assets/logo_white.png')" class="my-3" contain height="20")
-        v-tooltip(bottom)
+        v-tooltip(v-if="logged" bottom)
           template(v-slot:activator="{ on, attrs }")
-            v-btn(v-if="logged" icon v-bind="attrs" v-on="on")
+            v-btn(icon v-bind="attrs" v-on="on")
               v-icon mdi-account-arrow-right
           span Cerrar sesión
         template(v-if="logged" v-slot:extension)
