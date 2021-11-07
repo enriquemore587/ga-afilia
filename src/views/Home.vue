@@ -1,6 +1,5 @@
 <template lang="pug">
-  v-card
-    MainBar(v-if="true")
+  v-card(color="pink")
     v-sheet(id="scrolling-techniques-3" class="overflow-y-auto" max-height="600")
     v-container(style="height: 1000px;")
       v-alert(class="importante" dense type="info") It is
@@ -11,20 +10,24 @@
 
 <script>
 import { mapMutations } from "vuex";
-import MainBar from '../components/MainBar.vue'
   export default {
     name: 'Home',
 
     components: {
-      MainBar
     },
     methods: {
       ...mapMutations(["isLogged"]),
+      deshabilitaRetroceso() {
+        window.location.hash="no-back-button";
+        window.location.hash="Again-No-back-button" //chrome
+        window.onhashchange=function(){window.location.hash="";}
+      }
     },
     mounted() {
     },
     beforeMount() {
       this.isLogged(this)
+      this.deshabilitaRetroceso()
     }
   }
 </script>

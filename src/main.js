@@ -6,7 +6,7 @@ import vuetify from './plugins/vuetify'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
-axios.defaults.baseURL = 'https://demo3705262.mockable.io';
+axios.defaults.baseURL = 'https://demo0943752.mockable.io/';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.validateStatus=  status => {
   return status == 200 || status == 201 || status == 400 || status == 401

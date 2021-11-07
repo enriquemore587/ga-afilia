@@ -4,11 +4,8 @@
       | {{accountBlockedMsg}}
     v-alert(v-if="usrPwdIncorrect" type="info")
       | {{userPwdMsg}}
-    div.title
-      h1 Afilia
-        strong care
     div.initial
-      v-card(class="mx-auto" max-width="500" :loading="loading" :disabled="disabled")
+      v-card(class="mx-auto" max-width="300" :loading="loading" :disabled="disabled")
         v-card-title Acceso
         v-card-subtitle Introduce tus datos para acceder
         div.container
@@ -25,7 +22,6 @@ import { mapMutations } from "vuex";
   export default {
     name: 'Login',
     components: {
-      // HelloWorld,
     },
     data: () => ({
       forget: true,
@@ -109,10 +105,6 @@ import { mapMutations } from "vuex";
 <style scoped>
   * {
     font-family: 'Material Design Icons';
-  }
-  .title {
-    margin-top: 80px;
-    text-align: center;
   }
   .initial {
     margin-top: 70px;
