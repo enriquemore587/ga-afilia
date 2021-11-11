@@ -11,8 +11,10 @@ export default new Vuex.Store({
     clearToken() {
       localStorage.clear()
     },
-    isLogged(state, view) {
-      state.logged = view.$route.name != 'Login'
+    isLogged(state) {
+      // state.logged = view.$route.name != 'Login'
+      state.logged = localStorage.getItem("token") != undefined && localStorage.getItem("token") != null
+      &&  localStorage.getItem("token").length > 0
     }
   },
   actions: {

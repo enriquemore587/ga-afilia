@@ -13,7 +13,8 @@
           v-list-item-title(v-text="folder.title")
           v-list-item-subtitle(v-text="folder.subtitle")
         v-list-item-action
-          v-btn(icon)
+          Dialog
+          //- v-btn(icon)
             v-icon(color="grey lighten-1") mdi-android-messages
       v-divider(inset)
       v-subheader(inset) Registro completo
@@ -24,23 +25,28 @@
           v-list-item-title(v-text="file.title")
           v-list-item-subtitle(v-text="file.subtitle")
         v-list-item-action
-          v-btn(icon)
+          Dialog
+          //- v-btn(icon)
             v-icon(color="grey lighten-1") mdi-android-messages
 </template>
 <script>
+import Dialog from '../components/Dialog.vue'
   export default {
     name: "NewPatients",
+    components:{
+      Dialog
+    },
     data: () => ({
       files: [
         {
           color: 'indigo lighten-1',
-          icon: 'mdi-clipboard-text',
+          icon: 'mdi-account-circle',
           subtitle: 'Jan 20, 2014',
           title: 'Jose Enrique Vergara Ambiriz',
         },
         {
           color: 'indigo lighten-1',
-          icon: 'mdi-gesture-tap-button',
+          icon: 'mdi-account-circle',
           subtitle: 'Jan 10, 2014',
           title: 'Uriel Morales Jimenez',
         },

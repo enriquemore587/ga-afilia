@@ -7,13 +7,13 @@
         v-img(:src="require('./assets/logo_white.png')" class="my-3" contain height="20")
         v-tooltip(v-if="logged" bottom)
           template(v-slot:activator="{ on, attrs }")
-            v-btn(icon v-bind="attrs" v-on="on")
+            v-btn(icon v-bind="attrs" v-on="on" @click="closeSession")
               v-icon mdi-account-arrow-right
           span Cerrar sesión
         template(v-if="logged" v-slot:extension)
           v-tabs(align-with-title)
-            v-tab Inicio
-            v-tab Afilia Pacientes
+            v-tab(@click="goHome") Inicio
+            v-tab(@click="goPatients") Afilia Pacientes
             v-tab Afilia Enfermeras
             v-tab Afilia Doctores
       v-sheet(id="scrolling-techniques-3" class="overflow-y-auto" color="grey lighten-5" max-height="900")
@@ -33,7 +33,7 @@ export default {
     image: '../assets/logo_white.png'
   }),
   computed : {
-    ...mapState(["logged"])
+    ...mapState(["logged", "lastAccess"])
   },
   mounted() {
     if(localStorage.token) {
@@ -41,10 +41,21 @@ export default {
       }
   },
   methods : {
-    ...mapMutations(["isLogged"]),
+    ...mapMutations(["clearToken", "isLogged"]),
+    goHome () {
+        this.$router.push("/home");
+    },
+    goPatients () {
+        this.$router.push("/patients");
+    },
+    closeSession () {
+      this.clearToken()
+      this.isLogged()
+      this.$router.push("/");
+    }
   },
   beforeMount() {
-    this.isLogged(this)
+    this.isLogged()
   }
 };
 </script>

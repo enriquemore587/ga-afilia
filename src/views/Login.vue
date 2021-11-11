@@ -1,9 +1,5 @@
 <template lang="pug">
   div
-    v-alert(v-if="accountBlocked" text outlined color="deep-orange" icon="mdi-fire") 
-      | {{accountBlockedMsg}}
-    v-alert(v-if="usrPwdIncorrect" type="info")
-      | {{userPwdMsg}}
     div.initial
       v-card(class="mx-auto" max-width="300" :loading="loading" :disabled="disabled")
         v-card-title Acceso
@@ -12,6 +8,10 @@
           v-form(ref="form" v-model="valid" lazy-validation)
             v-text-field(v-model="username" :counter="50" :rules="usernameRules" label="Username" required)
             v-text-field(v-model="password" :rules="passwordRules" type="password" label="Password" required)
+            v-alert(v-if="accountBlocked" text outlined color="deep-orange" icon="mdi-fire") 
+              | {{accountBlockedMsg}}
+            v-alert(v-if="usrPwdIncorrect" type="info")
+              | {{userPwdMsg}}
             v-btn.btn(:disabled="!valid" :loading="loading" depressed color="primary" block class="mr-4" @click="validate") Entrar
             v-btn.btn(text color="blue darken-1" block @click="accessReset") Olvide mi contraseña
 </template>
@@ -32,18 +32,18 @@ import { mapMutations } from "vuex";
       userPwdMsg: 'Usuario y/o Contraseña incorrectos',
       accountBlockedMsg: 'Limite de intentos superado, la cuenta ha sido bloqueada',
       valid: true,
-      username: '',
+      username: 'enriquevergara.ambriz',
       usernameRules: [
         v => !!v || 'Username is required',
          v => (v || '').indexOf(' ') < 0 || 'No spaces are allowed'
       ],
-      password: '',
+      password: '12345678',
       passwordRules : [
         v => !!v || 'Password is required'
       ]
     }),
     beforeUpdate() {
-      this.isLogged(this)
+      this.isLogged()
     },
     beforeMount() {
       this.clearToken()
@@ -66,29 +66,28 @@ import { mapMutations } from "vuex";
         let view = this;
         view.accountBlocked = false;
         view.usrPwdIncorrect = false;
+        view.disabled = true;
+        view.loading = true;
         this.axios.post('/access', { username: this.username, password: this.password})
         .then(function (response) {
+          console.log(response.data.status);
           if(response.status === 200) {
             localStorage.setItem("token", response.data.token)
             localStorage.setItem("lastAccessDate", response.data.lastAccessDate)
             localStorage.setItem("name", response.data.name)
             localStorage.setItem("usermane", response.data.usermane)
-            view.disabled = true;
-            view.loading = true;
-            setTimeout(() => {
-              view.$router.push("/home")
-            }, 5000);
-          } else if(response.status === 401) {
-            if (response.data.status == 'AF-BLOCKED') {
+            view.$router.push("/home")
+          } else if(response.status === 400) {
+            if (response.data.status == 'AF-BLOCKED-USER') {
               view.accountBlocked = true;
               view.disabled = false;
               view.loading = false;
               view.accountBlockedMsg = response.data.details;
-            } else if (response.data.status == 'AF-USER-PWD') {
+            } else if (response.data.status == 'AF-USER-PDW') {
               view.usrPwdIncorrect = true;
               view.userPwdMsg = response.data.details;
             }
-          }
+          } 
         })
         .catch(function (error) {
           console.log(error);

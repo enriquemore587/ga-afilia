@@ -1,7 +1,8 @@
 <template lang="pug">
   div.home
-    h1 Hola {{name}}
+    h1 ¡Hola {{name}}!
     h3 Este es el resumen al día de hoy
+    h6 Último acceso - {{lastAccessDate}}
     div.resume
       v-container(class="grey lighten-5")
         v-row(class="mb-6" justify="center" dense)
@@ -38,18 +39,22 @@
 <script>
 
 import NewPatients from '../components/NewPatients.vue';
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 
   export default {
     name: 'Home',
     data : () => ({
-      name: 'Hector'
+      name: 'Hector',
+      lastAccessDate: 'Ahora'
     }),
+    computed : {
+      ...mapState(["logged"])
+    },
     components: {
       NewPatients
     },
     methods: {
-      ...mapMutations(["isLogged"]),
+      ...mapMutations(["clearToken", "isLogged"]),
       deshabilitaRetroceso() {
         window.location.hash="no-back-button";
         window.location.hash="Again-No-back-button" //chrome
@@ -59,17 +64,28 @@ import { mapMutations } from "vuex";
     mounted() {
     },
     beforeMount() {
-      this.isLogged(this)
-      this.deshabilitaRetroceso()
+      this.isLogged()
+      if (this.logged) {
+        this.name = localStorage.getItem("name")
+        this.lastAccessDate = localStorage.getItem("lastAccessDate")
+        this.deshabilitaRetroceso() 
+      } else {
+        this.clearToken()
+        this.isLogged()
+        this.$router.push("/");
+      }
     }
   }
 </script>
 <style scoped>
-h1, h3 {
+h1, h3, h6 {
   text-align: center;
 }
 h3 {
   color: #616161;
+}
+h6 {
+  color: #BDBDBD;
 }
 .resume {
   
