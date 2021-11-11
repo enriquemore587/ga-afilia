@@ -4,10 +4,22 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import ForgetPassword from '../views/ForgetPassword.vue'
 import Patients from '../views/Patients.vue'
+import CodeValidation from '../views/CodeValidation.vue'
+import ResetPassword from '../views/ResetPassword.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/reset-password',
+    name: 'ResetPassword',
+    component: ResetPassword
+  },
+  {
+    path: '/code-validation',
+    name: 'CodeValidation',
+    component: CodeValidation
+  },
   {
     path: '/forget-password',
     name: 'ForgetPassword',
