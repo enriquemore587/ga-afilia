@@ -68,7 +68,7 @@ import { mapMutations } from "vuex";
         view.usrPwdIncorrect = false;
         view.disabled = true;
         view.loading = true;
-        this.axios.post('/access', { username: this.username, password: this.password})
+        this.axios.post('/ms-login/access', { username: this.username, password: this.password})
         .then(function (response) {
           console.log(response.data.status);
           if(response.status === 200) {

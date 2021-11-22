@@ -75,7 +75,7 @@ import { mapMutations } from "vuex";
         view.showAlert = false;
         view.disabled = true;
         view.loading = true;
-        this.axios.put(`/access-update/${localStorage.getItem('reset')}`
+        this.axios.put(`/ms-login/access-update/${localStorage.getItem('reset')}`
               , { newPassword: this.newPassword, confirmPassword: this.confirmPassword })
         .then(function (response) {
           if(response.status === 200) {

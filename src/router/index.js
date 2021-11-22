@@ -6,11 +6,16 @@ import ForgetPassword from '../views/ForgetPassword.vue'
 import Patients from '../views/Patients.vue'
 import CodeValidation from '../views/CodeValidation.vue'
 import ResetPassword from '../views/ResetPassword.vue'
+import HealthCheck from '../views/HealthCheck.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/health-check',
+    name: 'HealthCheck',
+    component: HealthCheck
+  },{
     path: '/reset-password',
     name: 'ResetPassword',
     component: ResetPassword

@@ -63,7 +63,7 @@ import { mapMutations } from "vuex";
         view.showAlert = false;
         view.disabled = true;
         view.loading = true;
-        this.axios.post('/access-reset', { userName: this.username }) //TODO: Cambiar a username
+        this.axios.post('/ms-login/access-reset', { userName: this.username }) //TODO: Cambiar a username
         .then(function (response) {
           console.log(response);
           if(response.status === 200) {
